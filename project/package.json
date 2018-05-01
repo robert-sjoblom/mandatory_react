@@ -24,6 +24,6 @@
     "copypublic": "node setupoutput",
     "build": "npm run copypublic && webpack",
     "start:dev": "npm run copypublic && webpack-dev-server",
-    "test": "jest test/* --notify"
+    "test": "jest test/* --notify --watchAll test/"
   }
 }

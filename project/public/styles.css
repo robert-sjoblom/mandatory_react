@@ -43,3 +43,7 @@
   color: gold;
   text-shadow: 0 0 5px black;
 }
+
+.message {
+  color: red;
+}

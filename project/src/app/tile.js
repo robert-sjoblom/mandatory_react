@@ -17,7 +17,13 @@ The tile should render with the classes...
 import React from 'react';
 
 export default function Tile(props){
+
   return (
-    <div>To be implemented...</div>
+    <div 
+      className={`tile plr${props.piece} ${props.line ? "line" : ""}`}
+      onClick={() => props.onClick(props.i)}
+      >
+        {props.piece === 1 ? "X" : "O"}
+    </div>
   );
 }

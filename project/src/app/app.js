@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment as F} from 'react';
 
 import {makeMove, newGame} from '../logic';
 
@@ -19,9 +19,39 @@ and all tiles in an element with a `board` CSS class.
 */
 
 export default class App extends React.Component {
-  render(){
-    return (
-      <div>To be implemented...</div>
-    );
-  }
+    state = newGame();
+    
+    onClick = (key) => {
+        this.setState(
+            makeMove(this.state, key)
+        );
+    }
+
+    onReset = () => {
+        this.setState(
+            newGame()
+        )
+    }
+    render(){
+        const {board, line} = this.state;
+        const gameState = this.state.state;
+
+        return (
+            <F>
+                <Message gameState={gameState}/>
+                <div className="board">
+                    {board.map((tile, i) => {
+                            return (<Tile
+                                key={i}
+                                i={i}
+                                piece={tile}
+                                line={line.includes(i)}
+                                onClick={this.onClick} />
+                            )}
+                    )}
+                    <button onClick={this.onReset}>Reset Game.</button>
+                </div>
+            </F>
+        );
+    }
 }
