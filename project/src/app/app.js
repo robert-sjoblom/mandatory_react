@@ -1,6 +1,9 @@
 import React, {Fragment as F} from 'react';
 
-import {makeMove, newGame} from '../logic';
+// import {makeMove, newGame} from '../logic';
+import { newGame, makeMove } from "./actions";
+// import { makeMove as mMove } from "../logic";
+import { connect } from "react-redux";
 
 import Message from './message';
 import Tile from './tile';
@@ -18,23 +21,20 @@ The App component should render an outer element with a `container` CSS class,
 and all tiles in an element with a `board` CSS class.
 */
 
-export default class App extends React.Component {
-    state = newGame();
+class App extends React.Component {
+    
+    // state = newGame();
     
     onClick = (key) => {
-        this.setState(
-            makeMove(this.state, key)
-        );
+        this.props.makeMove(this.props.game, key)
     }
 
     onReset = () => {
-        this.setState(
-            newGame()
-        )
+        this.props.newGame();
     }
     render(){
-        const {board, line} = this.state;
-        const gameState = this.state.state;
+        const {board, line} = this.props.game;
+        const gameState = this.props.game.state;
 
         return (
             <F>
@@ -55,3 +55,12 @@ export default class App extends React.Component {
         );
     }
 }
+
+
+export { App }; //for testing
+export default connect(
+    state => ({ game: state.game }), //definiera vad vår komponent vill ha
+    {
+        newGame, makeMove //defines what action creators we need in this component 
+    }
+)(App); //for using redux
