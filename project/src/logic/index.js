@@ -76,17 +76,16 @@ const winPatterns = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
 
 export const winCheck = (board) => {
     let line = () => {
-        if (winPatterns.some((item, index) => {
-            if (board[item[0]] !== 0 && board[item[0]] === board[item[1]]) {
-                if (board[item[1]] === board[item[2]]) {
+        return winPatterns.some((item, index) => {
+            if (board[item[0]] && board[item[0]] === board[item[1]] 
+                && board[item[1]] === board[item[2]]) {
                     line = item;
-                    return true
-                }
-            }
-            return false;
-        })) return line; //if winPatterns.some() evaluates to true
-        
-        return []; //if it doesn't
+                    return true;
+                } 
+                return false
+            })
+            ? line 
+            : [];
     }
     return line();
 }
